@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name = 'index'),
     path('perfil/<int:perfil_id>', views.exibir_perfil, name = 'exibir'),
-    path('perfis/<int:perfil_id>', views.convidar, name = 'convidar')
+    path('perfis/<int:perfil_id>', views.convidar, name = 'convidar'),
+    path('convite/<int:convite_id>/aceitar', views.aceitar, name = 'aceitar'),
 ]
