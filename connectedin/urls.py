@@ -14,13 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf.urls import url
 from django.urls import path
 from perfis import views
+from usuarios.views import RegistrarUsuarioView
+from django.contrib.auth import views as v
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name = 'index'),
-    path('perfil/<int:perfil_id>', views.exibir_perfil, name = 'exibir'),
-    path('perfis/<int:perfil_id>', views.convidar, name = 'convidar'),
-    path('convite/<int:convite_id>/aceitar', views.aceitar, name = 'aceitar'),
+    path('', views.index, name='index'),
+    path('perfil/<int:perfil_id>', views.exibir_perfil, name='exibir'),
+    path('perfis/<int:perfil_id>', views.convidar, name='convidar'),
+    path('convite/<int:convite_id>/aceitar', views.aceitar, name='aceitar'),
+    path('registrar/', RegistrarUsuarioView.as_view(), name='registrar'),
+    
+    path('registrar/', RegistrarUsuarioView.as_view(), name='registrar'),
+    path('login/', v.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', v.LogoutView.as_view(template_name='login.html'), name='logout')
+    # -> O as_view() se encarrega de instanciar uma classe e registrar o usuário view 
+    # direcionando para o método necessário (get, post, etc).
 ]

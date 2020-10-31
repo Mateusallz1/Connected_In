@@ -2,18 +2,20 @@
 {% block body %}
 <div class="row">
     <div class="col-lg-12">
-        <h2 style="margin-top: 0">{{perfil.nome}}</h2>
+        <h2 style="margin-top: 0">{{ perfil.nome }}</h2>
         <address>
             <strong>{{perfil.nome_empresa}}</strong><br/>
-            <abbr title="Telefone">Tel</abbr> {{perfil.telefone}}<br/>
+            <abbr title="Telefone">Tel: </abbr> {{perfil.telefone}}<br/>
             <a href="mailto:{{perfil.email}}">{{perfil.email}}</a>
         </address>
-        {% if ja_eh_contato %}
+
+        {% if perfil_logado.pode_convidar %}
             <div class="well well-sm">Vocês já estão conectados!</div>
         {% else %}
             <a href= "{% url 'convidar' perfil.id %}" class="btn btn-sucess" role="button">Convidar</a>
-        {% endif %}
+        {% endif %}     
     </div>
+
     <div class="panel panel-default">
         {% if perfil_logado.convites_recebidos.count %}
             <div class="panel-heading">
@@ -22,7 +24,7 @@
             <ul class="list-group">
                 {% for convite in perfil_logado.convites_recebidos.all %}
                     <li class="list-group-item">
-                        {{convite.solicitante.nome}}
+                        {{ convite.solicitante.nome }}
                         <a href="{% url 'aceitar' convite.id %}" class="pull-right">Aceitar</a>
                     </li>
                 {% endfor %}

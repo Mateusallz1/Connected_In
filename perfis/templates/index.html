@@ -7,7 +7,7 @@
             <strong>Todos os Perfis</strong>
         </div>
         {% if perfis %}
-            <ul>
+            <ul class="list-group">
                 {% for perfil in perfis %}
                     <li> 
                         <a href = "{% url 'exibir' perfil.id %}"> {{ perfil.nome }} / {{ perfil.email }}</a> 
@@ -18,23 +18,12 @@
             <p>Nenhum Perfil foi encontrado!</p>
         {% endif %}
     </div>  
-
-    <div class="pane panel-default">
-        {% with total_de_convites=perfil_logado.convites_recebidos.count %}
-            {% if total_de_convites %}
-            <div class="panel-heading">
-                <strong> Você tem {{total_de_convites}} convite{{ total_de_convites|pluralize }} aguardando aprovação.
-                </strong>
-            </div>
-            {% endif %}
-        {% endwith %}
-    </div>
     
     <div class="panel panel-default">
         {% with total_de_contatos=perfil_logado.contatos.count %}
             {% if total_de_contatos %}
                 <div class="panel-heading">
-                    <strong>Você tem {{total_de_contatos}} contato{{ total_de_contatos|pluralize }}</strong>
+                    <strong>Você tem {{total_de_contatos}} contato{{total_de_contatos|pluralize}}</strong>
                 </div>
                 <ul class="list-group">
                     {% for contato in perfil_logado.contatos.all %}
@@ -47,7 +36,17 @@
                 </div>
             {% endif %}
         {% endwith %}
-        </div>
+    </div>
+
+    <div class="pane panel-default">
+        {% with total_de_convites=perfil_logado.convites_recebidos.count %}
+            {% if total_de_convites %}
+            <div class="panel-heading">
+                <strong> Você tem {{total_de_convites}} convite{{ total_de_convites|pluralize }} aguardando aprovação.
+                </strong>
+            </div>
+            {% endif %}
+        {% endwith %}
+    </div>
 </div>
 {% endblock %}
-</html>
